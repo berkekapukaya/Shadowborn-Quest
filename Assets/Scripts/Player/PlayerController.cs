@@ -6,6 +6,7 @@ namespace Player
     public class PlayerController : MonoBehaviour
     {
         public bool FacingLeft { get => facingLeft; set => facingLeft = value; }
+        public static PlayerController Instance { get; private set; }
     
         [SerializeField] private float moveSpeed = 1f;
         private Vector2 _movement;
@@ -20,6 +21,7 @@ namespace Player
     
         private void Awake()
         {
+            Instance = this;
             _playerControls = new PlayerControls();
             _rb = GetComponent<Rigidbody2D>();
             myAnimator = GetComponent<Animator>();

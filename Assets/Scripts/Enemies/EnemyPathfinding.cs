@@ -1,3 +1,4 @@
+using Misc;
 using UnityEngine;
 
 namespace Enemies
@@ -8,14 +9,17 @@ namespace Enemies
     
         private Rigidbody2D _rb;
         private Vector2 moveDir;
+        private Knockback _knockback;
     
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
+            _knockback = GetComponent<Knockback>();
         }
 
         private void FixedUpdate()
         {
+            if(_knockback.gettingKnockedBack) return;
             _rb.MovePosition(_rb.position + moveDir * (moveSpeed * Time.fixedDeltaTime));
         }
     
