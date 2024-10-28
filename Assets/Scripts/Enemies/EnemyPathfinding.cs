@@ -19,7 +19,7 @@ namespace Enemies
 
         private void FixedUpdate()
         {
-            if(_knockback.gettingKnockedBack) return;
+            if(_knockback.GettingKnockedBack) return;
             _rb.MovePosition(_rb.position + moveDir * (moveSpeed * Time.fixedDeltaTime));
         }
     

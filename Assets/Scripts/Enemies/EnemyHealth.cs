@@ -10,6 +10,7 @@ namespace Enemies
     {
         [SerializeField] private int startingHealth = 3;
         [SerializeField] private GameObject deathVFXPrefab;
+        [SerializeField] private float knockBackThrust = 15f;
     
         private int _currentHealth;
         private Knockback _knockback;
@@ -28,7 +29,7 @@ namespace Enemies
         public void TakeDamage(int damage)
         {
             _currentHealth -= damage;
-            _knockback.GetKnockedBack(PlayerController.Instance.transform, 15f);
+            _knockback.GetKnockedBack(PlayerController.Instance.transform, knockBackThrust);
             StartCoroutine(_flash.FlashRoutine());
             StartCoroutine(DelayCheckHealth());
         }

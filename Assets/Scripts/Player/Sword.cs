@@ -1,21 +1,25 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Player
 {
     public class Sword : MonoBehaviour
     {
+        
+        [SerializeField] private GameObject slashAnimPrefab;
+        [SerializeField] private Transform slashAnimSpawnPoint;
+        [SerializeField] private Transform weaponCollider;
+        [SerializeField] private float attackCooldown = 0.5f;
+         
         private PlayerControls _playerControls;
         private Animator _myAnimator;
         private PlayerController _playerController;
         private ActiveWeapon _activeWeapon;
         private Camera _mainCamera;
-
-        private GameObject slashAnim;
-
-        [SerializeField] private GameObject slashAnimPrefab;
-        [SerializeField] private Transform slashAnimSpawnPoint;
-        [SerializeField] private Transform weaponCollider;
-
+        private GameObject _slashAnim;
+        private bool _attackButtonDown = false;
+        private bool _isAttacking = true;
+        
         private void Awake()
         {
             _playerController = GetComponentInParent<PlayerController>();
@@ -32,20 +36,42 @@ namespace Player
 
         private void Start()
         {
-            _playerControls.Combat.Attack.started += _ => Attack();
+            _playerControls.Combat.Attack.started += _ => StartAttacking();
+            _playerControls.Combat.Attack.canceled += _ => StopAttacking();
         }
 
         private void Update()
         {
             MouseFollowWithOffset();
+            if (!_isAttacking) return;
+            Attack();
+        }
+        
+        private void StartAttacking()
+        {
+            _attackButtonDown = true;
+        }
+
+        private void StopAttacking()
+        {
+            _attackButtonDown = false;
+        }
+
+        private IEnumerator AttackCooldownRoutine()
+        {
+            _isAttacking = false;
+            yield return new WaitForSeconds(attackCooldown);
+            _isAttacking = true;
         }
 
         private void Attack()
         {
+            if (!_attackButtonDown) return;
             _myAnimator.SetTrigger("Attack");
             weaponCollider.gameObject.SetActive(true);
-            slashAnim = Instantiate(slashAnimPrefab, slashAnimSpawnPoint.position, Quaternion.identity);
-            slashAnim.transform.parent = this.transform.parent;
+            _slashAnim = Instantiate(slashAnimPrefab, slashAnimSpawnPoint.position, Quaternion.identity);
+            _slashAnim.transform.parent = transform.parent;
+            StartCoroutine(AttackCooldownRoutine());
         }
 
         public void DoneAttackAnimEvent()
@@ -55,21 +81,21 @@ namespace Player
 
         public void SwingUpFlipAnim()
         {
-            if(slashAnim == null) return;
-            slashAnim.gameObject.transform.rotation = Quaternion.Euler(-180, 0, 0);
+            if(_slashAnim == null) return;
+            _slashAnim.gameObject.transform.rotation = Quaternion.Euler(-180, 0, 0);
             if (_playerController.FacingLeft)
             {
-                slashAnim.GetComponent<SpriteRenderer>().flipX = true;
+                _slashAnim.GetComponent<SpriteRenderer>().flipX = true;
             }
         }
     
         public void SwingDownFlipAnim()
         {
-            if(slashAnim == null) return;
-            slashAnim.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            if(_slashAnim == null) return;
+            _slashAnim.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
             if (_playerController.FacingLeft)
             {
-                slashAnim.GetComponent<SpriteRenderer>().flipX = true;
+                _slashAnim.GetComponent<SpriteRenderer>().flipX = true;
             }
         }
 

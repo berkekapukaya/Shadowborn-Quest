@@ -16,11 +16,11 @@ namespace Player
         {
             if (ps != null && !ps.IsAlive())
             {
-                DestroySelf();
+                DestroySelfAnimEvent();
             }
         }
 
-        public void DestroySelf()
+        public void DestroySelfAnimEvent()
         {
             Destroy(gameObject);
         }
