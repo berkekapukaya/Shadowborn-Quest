@@ -9,11 +9,9 @@ namespace Misc
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.GetComponent<DamageSource>())
-            {
-                Instantiate(destroyVFX, transform.position, Quaternion.identity);
-                Destroy(gameObject);
-            }
+            if (!other.gameObject.GetComponent<DamageSource>()) return;
+            Instantiate(destroyVFX, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 }

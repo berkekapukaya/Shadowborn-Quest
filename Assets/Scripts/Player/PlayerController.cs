@@ -1,19 +1,19 @@
 using System.Collections;
 using Helpers;
 using UnityEngine;
+using SceneManagement;
 using UnityEngine.Serialization;
 
 namespace Player
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : Singleton<PlayerController>
     {
         public bool FacingLeft { get; private set; } = false;
-        public static PlayerController Instance { get; private set; }
-    
+
         [SerializeField] private float moveSpeed = 1f;
         [SerializeField] private float dashSpeed = 4f;
         [SerializeField] private TrailRenderer trailRenderer;
-        
+
         private Vector2 _movement;
         private Rigidbody2D _rb;
 
@@ -23,18 +23,20 @@ namespace Player
         private PlayerControls _playerControls;
         private Animator _myAnimator;
         private SpriteRenderer _mySpriteRenderer;
-        private Camera _mainCamera;
         private bool _isDashing = false;
         private float startingMoveSpeed;
 
-        private void Awake()
+        public Camera mainCamera;
+
+        protected override void Awake()
         {
-            Instance = this;
+            base.Awake();
+
             _playerControls = new PlayerControls();
             _rb = GetComponent<Rigidbody2D>();
             _myAnimator = GetComponent<Animator>();
             _mySpriteRenderer = GetComponent<SpriteRenderer>();
-            _mainCamera = Camera.main;
+            mainCamera = Camera.main;
         }
 
         private void OnEnable()
@@ -46,7 +48,6 @@ namespace Player
         {
             _playerControls.Combat.Dash.performed += _ => Dash();
             startingMoveSpeed = moveSpeed;
-
         }
 
         private void Update()
@@ -75,14 +76,14 @@ namespace Player
         private void AdjustPlayerFacingDirection()
         {
             var mousePos = Input.mousePosition;
-            var playerScreenPoint = _mainCamera.WorldToScreenPoint(transform.position);
+            var playerScreenPoint = mainCamera.WorldToScreenPoint(transform.position);
             _mySpriteRenderer.flipX = mousePos.x < playerScreenPoint.x;
             FacingLeft = _mySpriteRenderer.flipX;
         }
 
         private void Dash()
         {
-            if (_isDashing) return; 
+            if (_isDashing) return;
             _isDashing = true;
             moveSpeed *= dashSpeed;
             trailRenderer.emitting = true;
@@ -97,6 +98,5 @@ namespace Player
             yield return new WaitForSeconds(DashCd);
             _isDashing = false;
         }
-    
     }
 }

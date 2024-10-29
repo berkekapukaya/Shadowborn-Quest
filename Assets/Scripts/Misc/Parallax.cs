@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Misc
@@ -7,23 +6,23 @@ namespace Misc
    {
       [SerializeField] private float parallaxOffset = -0.15f;
       
-      private Camera cam;
-      private Vector2 startPos;
-      private Vector2 travel => (Vector2)cam.transform.position - startPos;
+      private Camera _cam;
+      private Vector2 _startPos;
+      private Vector2 TravelDir => (Vector2)_cam.transform.position - _startPos;
 
       private void Awake()
       {
-         cam = Camera.main;
+         _cam = Camera.main;
       }
 
       private void Start()
       {
-         startPos = transform.position;
+         _startPos = transform.position;
       }
 
       private void FixedUpdate()
       {
-         transform.position = startPos + travel * parallaxOffset;
+         transform.position = _startPos + TravelDir * parallaxOffset;
       }
    }
 }

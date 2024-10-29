@@ -9,23 +9,21 @@ namespace Misc
     {
         [SerializeField] private Material whiteFlashMat;
         [SerializeField] private float restoreDefaultMatTime = 0.2f;
-        private EnemyHealth _enemyHealth;
 
-        private Material defaultMat;
-        private SpriteRenderer spriteRenderer;
+        private Material _defaultMat;
+        private SpriteRenderer _spriteRenderer;
 
         private void Awake()
         {
-            _enemyHealth = GetComponent<EnemyHealth>();
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            defaultMat = spriteRenderer.material;
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _defaultMat = _spriteRenderer.material;
         }
 
         public IEnumerator FlashRoutine()
         {
-            spriteRenderer.material = whiteFlashMat;
+            _spriteRenderer.material = whiteFlashMat;
             yield return new WaitForSeconds(restoreDefaultMatTime);
-            spriteRenderer.material = defaultMat;
+            _spriteRenderer.material = _defaultMat;
         }
         
         public float GetRestoreDefaultMatTime()

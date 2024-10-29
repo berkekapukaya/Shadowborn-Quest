@@ -5,7 +5,6 @@ namespace Player
 {
     public class Sword : MonoBehaviour
     {
-        
         [SerializeField] private GameObject slashAnimPrefab;
         [SerializeField] private Transform slashAnimSpawnPoint;
         [SerializeField] private Transform weaponCollider;
@@ -15,7 +14,6 @@ namespace Player
         private Animator _myAnimator;
         private PlayerController _playerController;
         private ActiveWeapon _activeWeapon;
-        private Camera _mainCamera;
         private GameObject _slashAnim;
         private bool _attackButtonDown = false;
         private bool _isAttacking = true;
@@ -24,7 +22,6 @@ namespace Player
         {
             _playerController = GetComponentInParent<PlayerController>();
             _activeWeapon = GetComponentInParent<ActiveWeapon>();
-            _mainCamera = Camera.main;
             _myAnimator = GetComponent<Animator>();
             _playerControls = new PlayerControls();
         }
@@ -101,8 +98,9 @@ namespace Player
 
         private void MouseFollowWithOffset()
         {
+           
             var mousePos = Input.mousePosition;
-            var playerScreenPoint = _mainCamera.WorldToScreenPoint(_playerController.transform.position);
+            var playerScreenPoint = PlayerController.Instance.mainCamera.WorldToScreenPoint(_playerController.transform.position);
 
             var angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
 
