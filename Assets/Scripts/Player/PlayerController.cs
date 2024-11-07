@@ -13,6 +13,8 @@ namespace Player
         [SerializeField] private float moveSpeed = 1f;
         [SerializeField] private float dashSpeed = 4f;
         [SerializeField] private TrailRenderer trailRenderer;
+        [SerializeField] private Transform weaponCollider;
+        [SerializeField] private Transform slashAnimSpawnPoint;
 
         private Vector2 _movement;
         private Rigidbody2D _rb;
@@ -24,8 +26,9 @@ namespace Player
         private Animator _myAnimator;
         private SpriteRenderer _mySpriteRenderer;
         private bool _isDashing = false;
-        private float startingMoveSpeed;
-
+        private float _startingMoveSpeed;
+        
+        [HideInInspector]
         public Camera mainCamera;
 
         protected override void Awake()
@@ -47,7 +50,7 @@ namespace Player
         private void Start()
         {
             _playerControls.Combat.Dash.performed += _ => Dash();
-            startingMoveSpeed = moveSpeed;
+            _startingMoveSpeed = moveSpeed;
         }
 
         private void Update()
@@ -59,6 +62,16 @@ namespace Player
         {
             Move();
             AdjustPlayerFacingDirection();
+        }
+
+        public Transform GetWeaponCollider()
+        {
+            return weaponCollider;
+        }
+        
+        public Transform GetSlashAnimSpawnPoint()
+        {
+            return slashAnimSpawnPoint;
         }
 
         private void PlayerInput()
@@ -93,7 +106,7 @@ namespace Player
         private IEnumerator EndDashRoutine()
         {
             yield return new WaitForSeconds(DashTime);
-            moveSpeed = startingMoveSpeed;
+            moveSpeed = _startingMoveSpeed;
             trailRenderer.emitting = false;
             yield return new WaitForSeconds(DashCd);
             _isDashing = false;
