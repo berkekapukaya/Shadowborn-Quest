@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Player;
 using UnityEngine;
@@ -16,9 +17,24 @@ namespace Enemies
         [SerializeField] private float burstDelay;
         [SerializeField] private float restTime = 1f;
         [SerializeField] private bool stagger;
+        [Tooltip("Stagger has to be enabled for oscillate to work")]
         [SerializeField] private bool oscillate;
 
         private bool _isShooting = false;
+
+        private void OnValidate()
+        {
+            if(oscillate) {stagger = true;}
+            if(!oscillate) {stagger = false;}
+            if(projectilePerBurst < 1) {projectilePerBurst = 1;}
+            if(burstCount < 1) {burstCount = 1;}
+            if(burstDelay < 0.1f) {burstDelay = 0.1f;}
+            if(startingDistance < 0.1f) {startingDistance = 0.1f;}
+            if(restTime < 0.1f) {restTime = 0.1f;}
+            if(angleSpread == 0) {projectilePerBurst = 1;}
+            if(bulletMoveSpeed <= 0){bulletMoveSpeed = 0.1f;}
+        }
+
         public void Attack()
         {
             if (!_isShooting)
