@@ -1,5 +1,6 @@
 using System.Collections;
 using Helpers;
+using Misc;
 using UnityEngine;
 using SceneManagement;
 using UnityEngine.Serialization;
@@ -25,6 +26,8 @@ namespace Player
         private PlayerControls _playerControls;
         private Animator _myAnimator;
         private SpriteRenderer _mySpriteRenderer;
+        private Knockback _knockback;
+        
         private bool _isDashing = false;
         private float _startingMoveSpeed;
         
@@ -39,6 +42,7 @@ namespace Player
             _rb = GetComponent<Rigidbody2D>();
             _myAnimator = GetComponent<Animator>();
             _mySpriteRenderer = GetComponent<SpriteRenderer>();
+            _knockback = GetComponent<Knockback>();
             mainCamera = Camera.main;
         }
 
@@ -83,6 +87,7 @@ namespace Player
 
         private void Move()
         {
+            if (_knockback.GettingKnockedBack) return;
             _rb.MovePosition(_rb.position + _movement * (moveSpeed * Time.fixedDeltaTime));
         }
 
