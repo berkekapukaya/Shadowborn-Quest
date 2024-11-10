@@ -1,9 +1,8 @@
-using System;
-using System.Security.Cryptography;
 using Enemies;
+using Inventory;
 using UnityEngine;
 
-namespace Inventory
+namespace Weapons
 {
     public class Projectile : MonoBehaviour
     {
@@ -35,7 +34,6 @@ namespace Inventory
             var indestructable = other.gameObject.GetComponent<Indestructable>();
 
             if (other.isTrigger || (!enemyHealth && !indestructable)) return;
-            enemyHealth?.TakeDamage(_weaponInfo.weaponDamage);
             Instantiate(particleOnHitPrefabVFX, transform.position, transform.rotation);
             Destroy(gameObject);
         }

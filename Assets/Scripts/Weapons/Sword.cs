@@ -1,9 +1,8 @@
-using System;
-using System.Collections;
+using Inventory;
 using Player;
 using UnityEngine;
 
-namespace Inventory
+namespace Weapons
 {
     public class Sword : MonoBehaviour, IWeapon
     {
@@ -86,12 +85,6 @@ namespace Inventory
                 ActiveWeapon.Instance.transform.rotation = Quaternion.Euler(0, 0, angle);
                 _weaponCollider.rotation = Quaternion.Euler(0, 0, 0);
             }
-        }
-
-        private void OnDisable()
-        {
-            // ActiveWeapon.Instance.ToggleIsAttacking(false);
-            // _weaponCollider.gameObject.SetActive(false);
         }
     }
 }

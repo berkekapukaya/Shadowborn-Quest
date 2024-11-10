@@ -1,7 +1,7 @@
 using Player;
 using UnityEngine;
 
-namespace Inventory
+namespace Weapons
 {
     public class MouseFollow : MonoBehaviour
     {

@@ -1,7 +1,8 @@
+using Inventory;
 using Player;
 using UnityEngine;
 
-namespace Inventory
+namespace Weapons
 {
     public class Bow : MonoBehaviour, IWeapon
     {

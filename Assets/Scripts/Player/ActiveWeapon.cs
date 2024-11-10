@@ -75,12 +75,10 @@ namespace Player
 
         private void Attack()
         {
-            if (_attackButtonDown && !_isAttacking)
-            {
-                AttackCooldown();
-                (CurrentActiveWeapon as IWeapon)?.Attack();
-            }
-           
+            if (!_attackButtonDown || _isAttacking || !CurrentActiveWeapon) return;
+            AttackCooldown();
+            (CurrentActiveWeapon as IWeapon)?.Attack();
+
         }
     }
 }
