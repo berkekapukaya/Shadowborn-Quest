@@ -13,6 +13,7 @@ namespace Misc
 
         private void Start()
         {
+            if (!_animator) return;
             var stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
             _animator.Play(stateInfo.fullPathHash, -1, Random.Range(0f, 1f));
         }
