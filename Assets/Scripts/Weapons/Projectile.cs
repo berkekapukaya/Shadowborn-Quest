@@ -38,12 +38,17 @@ namespace Weapons
             var player = other.gameObject.GetComponent<PlayerHealth>();
 
             if (other.isTrigger || (!enemyHealth && !indestructable && !player)) return;
-            if (player && isEnemyProjectile)
+            if ((player && isEnemyProjectile) || (enemyHealth && !isEnemyProjectile))
             {
-                player.TakeDamage(1, transform);   
+                player?.TakeDamage(1, transform);   
+                Instantiate(particleOnHitPrefabVFX, transform.position, transform.rotation);
+                Destroy(gameObject);
+            }else if (!other.isTrigger && indestructable)
+            {
+                Instantiate(particleOnHitPrefabVFX, transform.position, transform.rotation);
+                Destroy(gameObject);
             }
-            Instantiate(particleOnHitPrefabVFX, transform.position, transform.rotation);
-            Destroy(gameObject);
+            
         }
         
         private void DetectFireDistance()

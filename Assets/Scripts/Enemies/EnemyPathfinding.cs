@@ -31,5 +31,10 @@ namespace Enemies
         {
             _moveDir = targetPosition;
         }
+        
+        public void StopMoving()
+        {
+            _moveDir = Vector2.zero;
+        }
     }
 }
