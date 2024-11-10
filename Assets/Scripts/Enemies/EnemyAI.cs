@@ -1,9 +1,6 @@
 using System.Collections;
 using Player;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
-
 namespace Enemies
 {
    public class EnemyAI : MonoBehaviour
@@ -26,7 +23,7 @@ namespace Enemies
       private Vector2 _roamingPosition;
       private float _timeRoaming = 0f;
 
-      private bool canAttack = true;
+      private bool _canAttack = true;
    
       [SerializeField] private float moveSpeed = 4f;
 
@@ -46,7 +43,7 @@ namespace Enemies
       {
          MovementStateControl();
       }
-
+      
       private void MovementStateControl()
       {
          switch (_state)
@@ -60,7 +57,6 @@ namespace Enemies
                break;
          }
       }
-
       private void Roaming()
       {
          _timeRoaming += Time.deltaTime;
@@ -78,16 +74,14 @@ namespace Enemies
             _timeRoaming = 0f;
          }
       }
-
       private void Attacking()
       {
          if(Vector2.Distance(transform.position, PlayerController.Instance.transform.position) >= attackRange)
          {
             _state = State.Roaming;
          }
-         
-         if (!canAttack || attackRange == 0) return;
-         canAttack = false;
+         if (!_canAttack || attackRange == 0) return;
+         _canAttack = false;
          (enemyType as IEnemy)?.Attack();
          
          if (stopMovingWhileAttacking)
@@ -101,13 +95,11 @@ namespace Enemies
          
          StartCoroutine(AttackCooldownRoutine());
       }
-      
       private IEnumerator AttackCooldownRoutine()
       {
          yield return new WaitForSeconds(attackCooldown);
-         canAttack = true;
+         _canAttack = true;
       }
-      
       private Vector2 GetRoamingPosition()
       {
          _timeRoaming = 0f;

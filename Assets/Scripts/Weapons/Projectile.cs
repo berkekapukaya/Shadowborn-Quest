@@ -29,6 +29,11 @@ namespace Weapons
         {
             _projectileRange = projectileRange;
         }
+        
+        public void UpdateProjectileMoveSpeed(float bulletMoveSpeed)
+        {
+            moveSpeed = bulletMoveSpeed;
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {

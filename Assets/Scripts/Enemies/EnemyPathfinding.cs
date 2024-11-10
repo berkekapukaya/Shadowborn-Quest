@@ -23,7 +23,6 @@ namespace Enemies
         {
             if(_knockback.GettingKnockedBack) return;
             _rb.MovePosition(_rb.position + _moveDir * (moveSpeed * Time.fixedDeltaTime));
-
             _spriteRenderer.flipX = _moveDir.x < 0;
         }
     
