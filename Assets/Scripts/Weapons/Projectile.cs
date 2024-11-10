@@ -1,5 +1,6 @@
 using Enemies;
 using Inventory;
+using Player;
 using UnityEngine;
 
 namespace Weapons
@@ -8,8 +9,9 @@ namespace Weapons
     {
         [SerializeField] private float moveSpeed = 22f;
         [SerializeField] private GameObject particleOnHitPrefabVFX;
+        [SerializeField] private bool isEnemyProjectile = false;
         
-        private WeaponInfo _weaponInfo;
+        [SerializeField] private float _projectileRange = 10f;
         private Vector3 _startPosition;
 
         private void Start()
@@ -23,9 +25,9 @@ namespace Weapons
             DetectFireDistance();
         }
         
-        public void UpdateWeaponInfo(WeaponInfo weaponInfo)
+        public void UpdateProjectileRange(float projectileRange)
         {
-            _weaponInfo = weaponInfo;
+            _projectileRange = projectileRange;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -33,14 +35,20 @@ namespace Weapons
             var enemyHealth = other.GetComponent<EnemyHealth>();
             var indestructable = other.gameObject.GetComponent<Indestructable>();
 
-            if (other.isTrigger || (!enemyHealth && !indestructable)) return;
+            var player = other.gameObject.GetComponent<PlayerHealth>();
+
+            if (other.isTrigger || (!enemyHealth && !indestructable && !player)) return;
+            if (player && isEnemyProjectile)
+            {
+                player.TakeDamage(1, transform);   
+            }
             Instantiate(particleOnHitPrefabVFX, transform.position, transform.rotation);
             Destroy(gameObject);
         }
         
         private void DetectFireDistance()
         {
-            if (!(Vector3.Distance(transform.position, _startPosition) > _weaponInfo.weaponRange)) return;
+            if (!(Vector3.Distance(transform.position, _startPosition) > _projectileRange)) return;
             Instantiate(particleOnHitPrefabVFX, transform.position, transform.rotation);
             Destroy(gameObject);
         }

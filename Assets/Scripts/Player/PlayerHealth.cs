@@ -31,14 +31,16 @@ namespace Player
         {
             var enemyAI = other.gameObject.GetComponent<EnemyAI>();
 
-            if (!enemyAI || !canTakeDamage) return;
-            TakeDamage(1);
-            _knockback.GetKnockedBack(other.gameObject.transform, knockbackThrustAmount);
-            StartCoroutine(_flash.FlashRoutine());
+            if (!enemyAI) return;
+            TakeDamage(1, other.transform);
+           
         }
 
-        private void TakeDamage(int damage)
+        public void TakeDamage(int damage, Transform hitTransform)
         {
+            if (!canTakeDamage) return;
+            _knockback.GetKnockedBack(hitTransform, knockbackThrustAmount);
+            StartCoroutine(_flash.FlashRoutine());
             canTakeDamage = false;
             _currentHealth -= damage;
             StartCoroutine(DamageRecoveryRoutine());
