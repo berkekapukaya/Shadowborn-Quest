@@ -1,3 +1,4 @@
+using Misc;
 using Player;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace SceneManagement
             Debug.Log("You are entering from the correct entrance");
             PlayerController.Instance.transform.position = this.transform.position;
             CameraController.Instance.SetPlayerAsFollowTarget();
+            CursorManager.Instance.SetMainCamera();
             UIFade.Instance.FadeFromBlack();
         }
     }
