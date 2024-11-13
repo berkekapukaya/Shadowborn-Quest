@@ -98,6 +98,7 @@ namespace Misc
             {
                 case PickupType.GoldCoin:
                     Debug.Log("Picked up a coin");
+                    EconomyManager.Instance.UpdateCurrentGold();
                     break;
                 case PickupType.HealthGlobe:
                     Debug.Log("Picked up a health globe");

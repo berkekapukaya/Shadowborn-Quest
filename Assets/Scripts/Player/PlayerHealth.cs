@@ -20,6 +20,8 @@ namespace Player
         private Slider healthSlider;
         private Knockback _knockback;
         private Flash _flash;
+        
+        const string HEALTH_SLIDER_TEXT = "HealthSlider";
         protected override void Awake()
         {
             base.Awake();
@@ -80,7 +82,7 @@ namespace Player
         {
             if (healthSlider == null)
             {
-                healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
+                healthSlider = GameObject.Find(HEALTH_SLIDER_TEXT).GetComponent<Slider>();
             }
             
             healthSlider.maxValue = maxHealth;
