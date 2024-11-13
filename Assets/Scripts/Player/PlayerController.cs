@@ -101,7 +101,8 @@ namespace Player
 
         private void Dash()
         {
-            if (_isDashing) return;
+            if (_isDashing || Stamina.Instance.CurrentStamina <= 0) return;
+            Stamina.Instance.UseStamina();
             _isDashing = true;
             moveSpeed *= dashSpeed;
             trailRenderer.emitting = true;

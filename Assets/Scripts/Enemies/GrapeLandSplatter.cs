@@ -22,10 +22,8 @@ namespace Enemies
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log("Yo");
             var playerHealth = other.gameObject.GetComponent<PlayerHealth>();
             playerHealth?.TakeDamage(1, transform);
-            
         }
 
         private void DisableCollider()

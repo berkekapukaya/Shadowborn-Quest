@@ -97,15 +97,13 @@ namespace Misc
             switch (pickupType)
             {
                 case PickupType.GoldCoin:
-                    Debug.Log("Picked up a coin");
                     EconomyManager.Instance.UpdateCurrentGold();
                     break;
                 case PickupType.HealthGlobe:
-                    Debug.Log("Picked up a health globe");
                     PlayerHealth.Instance.HealPlayer(1);
                     break;
                 case PickupType.StaminaGlobe:
-                    Debug.Log("Picked up a stamina globe");
+                    Stamina.Instance.RestoreStamina();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
