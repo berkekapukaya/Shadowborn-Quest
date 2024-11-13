@@ -15,10 +15,12 @@ namespace Enemies
         private int _currentHealth;
         private Knockback _knockback;
         private Flash _flash;
+        private PickupSpawner _pickupSpawner;
         private void Awake()
         {
             _flash = GetComponent<Flash>();
             _knockback = GetComponent<Knockback>();
+            _pickupSpawner = GetComponent<PickupSpawner>();
         }
 
         private void Start()
@@ -44,13 +46,14 @@ namespace Enemies
         {
             if (_currentHealth <= 0)
             {
-                Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
                 Die();
             }
         }
 
         private void Die()
         {
+            Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
+            _pickupSpawner.DropItems();
             Destroy(gameObject);
         }
     }

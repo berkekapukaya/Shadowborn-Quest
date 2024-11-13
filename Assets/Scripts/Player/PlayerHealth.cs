@@ -4,6 +4,7 @@ using Enemies;
 using Misc;
 using SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Player
 {
@@ -15,7 +16,8 @@ namespace Player
         
         private int _currentHealth;
         private bool canTakeDamage = true;
-        
+
+        private Slider healthSlider;
         private Knockback _knockback;
         private Flash _flash;
         protected override void Awake()
@@ -27,6 +29,7 @@ namespace Player
         private void Start()
         {
             _currentHealth = maxHealth;
+            UpdateHealthSlider();
         }
 
         private void OnCollisionStay2D(Collision2D other)
@@ -45,8 +48,16 @@ namespace Player
             StartCoroutine(_flash.FlashRoutine());
             canTakeDamage = false;
             _currentHealth -= damage;
+            CheckIfPlayerDead();
+            UpdateHealthSlider();
             StartCoroutine(DamageRecoveryRoutine());
+        }
 
+        private void CheckIfPlayerDead()
+        {
+            if (_currentHealth > 0) return;
+            _currentHealth = 0;
+            Debug.Log("Player is dead");
         }
         
         public void HealPlayer(int healAmount)
@@ -56,12 +67,24 @@ namespace Player
             {
                 _currentHealth = maxHealth;
             }
+            UpdateHealthSlider();
         }
 
         private IEnumerator DamageRecoveryRoutine()
         {
             yield return new WaitForSeconds(damageRecoveryTime);
             canTakeDamage = true;
+        }
+
+        private void UpdateHealthSlider()
+        {
+            if (healthSlider == null)
+            {
+                healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
+            }
+            
+            healthSlider.maxValue = maxHealth;
+            healthSlider.value = _currentHealth;
         }
     }
 }
