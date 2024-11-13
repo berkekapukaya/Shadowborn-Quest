@@ -1,24 +1,20 @@
-using SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Misc
 {
-    public class CursorManager : Singleton<CursorManager>
+    public class CursorManager : MonoBehaviour
     {
         private Camera _mainCamera;
 
         private Image _image;
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
-            
-            SetMainCamera();
             _image = GetComponent<Image>();
         }
 
-        void Start()
+        private void Start()
         {
             Cursor.visible = false;
             if (Application.isPlaying)
@@ -31,7 +27,7 @@ namespace Misc
             }
         }
 
-        void Update()
+        private void Update()
         {
             Vector2 cursorPos = Input.mousePosition;
             _image.rectTransform.position = cursorPos;
@@ -40,11 +36,6 @@ namespace Misc
             
             Cursor.visible = false;
 
-        }
-        
-        public void SetMainCamera()
-        {
-            _mainCamera = Camera.main;
         }
     }
 }
