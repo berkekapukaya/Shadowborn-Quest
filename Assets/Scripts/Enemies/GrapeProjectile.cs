@@ -16,7 +16,7 @@ namespace Enemies
 
         [SerializeField] private GameObject splatterPrefab;
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             var grapeShadow = Instantiate(grapeShadowPrefab, transform.position + new Vector3(0, -.3f, 0), Quaternion.identity);
             
