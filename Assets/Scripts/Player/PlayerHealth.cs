@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using Enemies;
 using Misc;
+using SceneManagement;
 using UnityEngine;
 
 namespace Player
 {
-    public class PlayerHealth : MonoBehaviour
+    public class PlayerHealth : Singleton<PlayerHealth>
     {
         [SerializeField] private int maxHealth = 3;
         [SerializeField] private float knockbackThrustAmount = 10f;
@@ -17,8 +18,9 @@ namespace Player
         
         private Knockback _knockback;
         private Flash _flash;
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _knockback = GetComponent<Knockback>();
             _flash = GetComponent<Flash>();
         }
@@ -45,6 +47,15 @@ namespace Player
             _currentHealth -= damage;
             StartCoroutine(DamageRecoveryRoutine());
 
+        }
+        
+        public void HealPlayer(int healAmount)
+        {
+            _currentHealth += healAmount;
+            if (_currentHealth > maxHealth)
+            {
+                _currentHealth = maxHealth;
+            }
         }
 
         private IEnumerator DamageRecoveryRoutine()

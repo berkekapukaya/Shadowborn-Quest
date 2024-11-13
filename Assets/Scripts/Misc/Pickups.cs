@@ -1,11 +1,23 @@
+using System;
 using System.Collections;
 using Player;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Misc
 {
     public class Pickups : MonoBehaviour
     {
+        
+        private enum PickupType
+        {
+            GoldCoin,
+            HealthGlobe,
+            StaminaGlobe
+        }
+        
+        [SerializeField] private PickupType pickupType;
+        
         [SerializeField] private float pickUpDistance = 5f;
         [SerializeField] private float accelerationRate = .2f;
         [SerializeField] private float moveSpeed = 3f;
@@ -53,6 +65,7 @@ namespace Misc
         {
             if (other.gameObject.GetComponent<PlayerController>())
             {
+                DetectPickupType();
                 Destroy(gameObject);
             }
         }
@@ -76,6 +89,25 @@ namespace Misc
             }
             {
                 yield return null;
+            }
+        }
+
+        private void DetectPickupType()
+        {
+            switch (pickupType)
+            {
+                case PickupType.GoldCoin:
+                    Debug.Log("Picked up a coin");
+                    break;
+                case PickupType.HealthGlobe:
+                    Debug.Log("Picked up a health globe");
+                    PlayerHealth.Instance.HealPlayer(1);
+                    break;
+                case PickupType.StaminaGlobe:
+                    Debug.Log("Picked up a stamina globe");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

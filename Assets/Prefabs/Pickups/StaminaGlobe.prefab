@@ -10,12 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2834724494919955743}
   - component: {fileID: 7016689137395569686}
-  - component: {fileID: 4449352959595821524}
   - component: {fileID: 1064276011693558286}
   - component: {fileID: 1457361223376263429}
   - component: {fileID: -7634602738026358420}
   m_Layer: 0
-  m_Name: GoldCoin
+  m_Name: StaminaGlobe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 7ab5df4e758634315be41ffc0223e487, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1767464223, guid: 7aec40051f1864ba9a9b082a9de53f47, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f48d236905d1644d8aea6a3ce0c3a32f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -88,27 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &4449352959595821524
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7824665850031254401}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: eaefe7e75dc00486e991af0e9750af79, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!70 &1064276011693558286
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -141,8 +119,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0062514544, y: 0.0125027895}
-  m_Size: {x: 0.51239, y: 0.5498984}
+  m_Offset: {x: -0.0039485097, y: 0.005262956}
+  m_Size: {x: 0.4064579, y: 0.4248809}
   m_Direction: 0
 --- !u!50 &1457361223376263429
 Rigidbody2D:
@@ -183,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a9478a6eb2c74aa98fb2d32460d4ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupType: 2
   pickUpDistance: 5
   accelerationRate: 0.4
   moveSpeed: 2
