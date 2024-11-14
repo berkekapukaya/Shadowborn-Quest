@@ -4,24 +4,29 @@ using Enemies;
 using Misc;
 using SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Player
 {
     public class PlayerHealth : Singleton<PlayerHealth>
     {
+        public bool IsDead { get; private set; }
+        
         [SerializeField] private int maxHealth = 3;
         [SerializeField] private float knockbackThrustAmount = 10f;
         [SerializeField] private float damageRecoveryTime = 1f;
         
         private int _currentHealth;
-        private bool canTakeDamage = true;
+        private bool _canTakeDamage = true;
 
-        private Slider healthSlider;
+        private Slider _healthSlider;
         private Knockback _knockback;
         private Flash _flash;
         
         const string HEALTH_SLIDER_TEXT = "HealthSlider";
+        const string TOWN_TEXT = "Town";
+        readonly int DEATH_HASH = Animator.StringToHash("Death");
         protected override void Awake()
         {
             base.Awake();
@@ -30,6 +35,7 @@ namespace Player
         }
         private void Start()
         {
+            IsDead = false;
             _currentHealth = maxHealth;
             UpdateHealthSlider();
         }
@@ -45,10 +51,10 @@ namespace Player
 
         public void TakeDamage(int damage, Transform hitTransform)
         {
-            if (!canTakeDamage) return;
+            if (!_canTakeDamage) return;
             _knockback.GetKnockedBack(hitTransform, knockbackThrustAmount);
             StartCoroutine(_flash.FlashRoutine());
-            canTakeDamage = false;
+            _canTakeDamage = false;
             _currentHealth -= damage;
             CheckIfPlayerDead();
             UpdateHealthSlider();
@@ -57,9 +63,20 @@ namespace Player
 
         private void CheckIfPlayerDead()
         {
-            if (_currentHealth > 0) return;
+            if (_currentHealth > 0 || IsDead) return;
             _currentHealth = 0;
-            Debug.Log("Player is dead");
+            IsDead = true;
+            Destroy(ActiveWeapon.Instance.gameObject);
+            GetComponent<Animator>().SetTrigger(DEATH_HASH);
+            StartCoroutine(DeathLoadSceneRoutine());
+        }
+        
+        private IEnumerator DeathLoadSceneRoutine()
+        {
+            yield return new WaitForSeconds(2f);
+            Destroy(gameObject);
+            Stamina.Instance.ResetStaminaOnDeath();
+            SceneManager.LoadScene(TOWN_TEXT);
         }
         
         public void HealPlayer(int healAmount)
@@ -75,18 +92,18 @@ namespace Player
         private IEnumerator DamageRecoveryRoutine()
         {
             yield return new WaitForSeconds(damageRecoveryTime);
-            canTakeDamage = true;
+            _canTakeDamage = true;
         }
 
         private void UpdateHealthSlider()
         {
-            if (healthSlider == null)
+            if (_healthSlider == null)
             {
-                healthSlider = GameObject.Find(HEALTH_SLIDER_TEXT).GetComponent<Slider>();
+                _healthSlider = GameObject.Find(HEALTH_SLIDER_TEXT).GetComponent<Slider>();
             }
             
-            healthSlider.maxValue = maxHealth;
-            healthSlider.value = _currentHealth;
+            _healthSlider.maxValue = maxHealth;
+            _healthSlider.value = _currentHealth;
         }
     }
 }

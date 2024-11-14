@@ -35,14 +35,22 @@ namespace Player
         {
             CurrentStamina--;
             UpdateStaminaImages();
+            StopAllCoroutines();
+            StartCoroutine(RestoreStaminaRoutine());
         }
         
         public void RestoreStamina()
         {
-            if (CurrentStamina < maxStamina)
+            if (CurrentStamina < maxStamina && !PlayerHealth.Instance.IsDead)
             {
                 CurrentStamina++;
             }
+            UpdateStaminaImages();
+        }
+        
+        public void ResetStaminaOnDeath()
+        {
+            CurrentStamina = _startingStamina;
             UpdateStaminaImages();
         }
 
@@ -59,13 +67,11 @@ namespace Player
         {
             for (int i = 0; i < maxStamina; i++)
             {
-                _staminaContainer.GetChild(i).GetComponent<Image>().sprite = i <= CurrentStamina - 1 ? fullStaminaImage : emptyStaminaImage;
-            }
+                var child = _staminaContainer.GetChild(i);
 
-            if (CurrentStamina < maxStamina)
-            {
-                StopAllCoroutines();
-                StartCoroutine(RestoreStaminaRoutine());
+                var image = child?.GetComponent<Image>();
+
+                if (image != null) image.sprite = i <= CurrentStamina - 1 ? fullStaminaImage : emptyStaminaImage;
             }
         }
     }

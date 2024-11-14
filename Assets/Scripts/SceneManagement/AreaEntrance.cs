@@ -11,7 +11,6 @@ namespace SceneManagement
         private void Start()
         {
             if (transitionName != SceneManagementS.Instance.SceneTransitionName) return;
-            Debug.Log("You are entering from the correct entrance");
             PlayerController.Instance.transform.position = this.transform.position;
             CameraController.Instance.SetPlayerAsFollowTarget();
             UIFade.Instance.FadeFromBlack();

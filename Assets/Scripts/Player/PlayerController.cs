@@ -1,5 +1,6 @@
 using System.Collections;
 using Helpers;
+using Inventory;
 using Misc;
 using UnityEngine;
 using SceneManagement;
@@ -51,10 +52,16 @@ namespace Player
             _playerControls.Enable();
         }
 
+        private void OnDisable()
+        {
+            _playerControls.Disable();
+        }
+
         private void Start()
         {
             _playerControls.Combat.Dash.performed += _ => Dash();
             _startingMoveSpeed = moveSpeed;
+            ActiveInventory.Instance.EquipStartingWeapon();
         }
 
         private void Update()
@@ -87,7 +94,7 @@ namespace Player
 
         private void Move()
         {
-            if (_knockback.GettingKnockedBack) return;
+            if (_knockback.GettingKnockedBack || PlayerHealth.Instance.IsDead) return;
             _rb.MovePosition(_rb.position + _movement * (moveSpeed * Time.fixedDeltaTime));
         }
 
