@@ -66,7 +66,7 @@ This project helped me expand my **Unity development skills** by working on:
 ---
 
 ## **📜 Credits**
-This project was built while following the **Unity 2D RPG: Complete Combat System** by **Gamedev.tv** on Udemy. The project has been expanded with **additional improvements and personal modifications**.  
+This project was built while following the **[Unity 2D RPG: Complete Combat System](https://www.udemy.com/course/unity-2d-rpg/?couponCode=KEEPLEARNING)** on Udemy. The project has been expanded with **additional improvements and personal modifications**.  
 
 ---
 
