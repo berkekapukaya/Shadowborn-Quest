@@ -152,7 +152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6614492354698124077, guid: bac993e87b2d44cf4bd66d202594d4ab, type: 3}
       propertyPath: projectilePerBurst
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5900505131081044830, guid: bac993e87b2d44cf4bd66d202594d4ab, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4396,7 +4396,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6614492354698124077, guid: bac993e87b2d44cf4bd66d202594d4ab, type: 3}
       propertyPath: angleSpread
-      value: 50
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: -6614492354698124077, guid: bac993e87b2d44cf4bd66d202594d4ab, type: 3}
       propertyPath: bulletMoveSpeed
@@ -12188,10 +12188,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1307695534}
     m_Modifications:
-    - target: {fileID: 2804203323284303762, guid: ac20d2c82db514c69ac9a5aef8aead5b, type: 3}
-      propertyPath: attackRange
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 4727849862171027106, guid: ac20d2c82db514c69ac9a5aef8aead5b, type: 3}
       propertyPath: m_Name
       value: GrapeEnemy
