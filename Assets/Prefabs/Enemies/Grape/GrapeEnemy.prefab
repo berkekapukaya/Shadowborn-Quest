@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roamChangeDirFrequency: 2
-  attackRange: 5
+  attackRange: 10
   enemyType: {fileID: 3471711721798469946}
   attackCooldown: 2
   stopMovingWhileAttacking: 1
