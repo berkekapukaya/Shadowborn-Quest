@@ -1,5 +1,4 @@
 # **Shadowborn Quest 2D RPG**
-A **2D action RPG** built through a Unity course, focusing on **melee and ranged combat, enemy AI, and inventory systems**. This project demonstrates key Unity development techniques for creating a **responsive and visually polished combat system**.
 
 ![Gameplay Screenshot](https://github.com/berkekapukaya/Shadowborn-Quest/blob/main/Screenshots/Screenshot%202025-02-28%20at%2013.27.22.png)  
 
