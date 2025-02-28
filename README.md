@@ -18,7 +18,7 @@
 
 ---
 
-##🎥 Gameplay Video
+## 🎥 Gameplay Video
 [Watch Gameplay Video on Google Drive](https://drive.google.com/file/d/17QfwmE1ZtLu_OfkFa7jdnfsUAspnsl61/view?usp=sharing)
 
 ---
