@@ -19,7 +19,7 @@ A **2D action RPG** built through a Unity course, focusing on **melee and ranged
 
 ---
 
-## **🎥 Gameplay Video **
+##🎥 Gameplay Video
 [Watch Gameplay Video on Google Drive](https://drive.google.com/file/d/17QfwmE1ZtLu_OfkFa7jdnfsUAspnsl61/view?usp=sharing)
 
 ---
@@ -39,7 +39,7 @@ A **2D action RPG** built through a Unity course, focusing on **melee and ranged
 ## **📂 How to Run the Project**
 1. Clone the repository:  
    ```sh
-   git clone https://github.com/yourusername/ActionRPG.git
+   git clone https://github.com/berkekapukaya/Shadowborn-Quest.git
 
 2. Open the project in **Unity**.  
 3. Load the **Scene_1**.  
