@@ -8,7 +8,7 @@ namespace Inventory
         
         public WeaponInfo GetWeaponInfo()
         {
-            return weaponInfo;
+            return weaponInfo; 
         }
     }
 }
